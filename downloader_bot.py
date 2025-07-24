@@ -50,8 +50,11 @@ def music(update: Update, context: CallbackContext) -> None:
 
     downloaded_file = None
     try:
+        # Perintah yt-dlp dengan tambahan argumen cookies
         command = [
-            'yt-dlp', '--extract-audio', '--audio-format', 'mp3',
+            'yt-dlp',
+            '--cookies', 'cookies.txt',  # <-- INI ARGUMEN BARUNYA
+            '--extract-audio', '--audio-format', 'mp3',
             '--audio-quality', '0', '-o', '%(title)s.%(ext)s',
             f"ytsearch1:{query}"
         ]
@@ -81,7 +84,7 @@ def music(update: Update, context: CallbackContext) -> None:
             raise FileNotFoundError("File MP3 tidak ditemukan setelah proses unduh selesai.")
 
     except subprocess.CalledProcessError:
-        logger.error(f"Gagal mengunduh '{query}'. Mungkin tidak ditemukan.")
+        logger.error(f"Gagal mengunduh '{query}'. Mungkin tidak ditemukan atau butuh cookies.")
         context.bot.send_message(chat_id, "❌ Maaf, lagu tidak ditemukan atau terjadi kesalahan saat mengunduh.")
     
     except Exception as e:
@@ -111,3 +114,4 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+
