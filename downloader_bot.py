@@ -1,3 +1,4 @@
+
 import logging
 import os
 import threading
@@ -20,7 +21,7 @@ logger = logging.getLogger(__name__)
 BUSY_LOCK = threading.Lock() # Kunci untuk sistem antrean
 
 # Batas ukuran file dalam MB
-MAX_FILE_SIZE_MB = 10
+MAX_FILE_SIZE_MB = 25
 
 # --- FUNGSI-FUNGSI COMMAND HANDLER ---
 
@@ -30,7 +31,7 @@ def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_html(
         f"👋 Halo, {user.mention_html()}!\n\n"
         "Saya adalah bot pengunduh musik versi canggih. Kirim perintah `/music` diikuti judul lagu, dan saya akan bekerja untukmu.\n\n"
-        "Fitur: Batas unduh 10 MB, sistem antrean, dan tampilan loading keren!",
+        "Fitur: Batas unduh 25 MB, sistem antrean, dan tampilan loading keren!",
         reply_to_message_id=update.message.message_id
     )
 
