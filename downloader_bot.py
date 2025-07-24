@@ -77,23 +77,24 @@ def music(update: Update, context: CallbackContext) -> None:
                     self.pbar = pbar
                 def debug(self, msg):
                     if msg.startswith('[download]'):
-                         self.pbar.update(1) # Asumsi setiap baris adalah satu progress tick
+                         self.pbar.update(1)
                 def info(self, msg): pass
                 def warning(self, msg): pass
                 def error(self, msg): pass
 
             # Opsi untuk yt-dlp
             ydl_opts = {
+                'cookiefile': 'cookies.txt', # <-- Menggunakan file cookies
                 'format': 'bestaudio/best',
                 'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '192'}],
                 'outtmpl': '%(title)s.%(ext)s',
                 'noplaylist': True,
-                'logger': logging.getLogger('yt_dlp_process'), # Non-aktifkan logger default yt-dlp
-                'progress_hooks': [], # Akan diisi nanti
+                'logger': logging.getLogger('yt_dlp_process'),
+                'progress_hooks': [],
             }
             
             # Mendapatkan info video terlebih dahulu
-            with yt_dlp.YoutubeDL({'quiet': True, 'noplaylist': True}) as ydl:
+            with yt_dlp.YoutubeDL({'quiet': True, 'noplaylist': True, 'cookiefile': 'cookies.txt'}) as ydl:
                 info = ydl.extract_info(f"ytsearch1:{query}", download=False)
                 if not info['entries']:
                     raise ValueError("Lagu tidak ditemukan.")
@@ -137,7 +138,7 @@ def music(update: Update, context: CallbackContext) -> None:
                         chat_id=chat_id,
                         message_id=status_message.message_id
                     )
-                    return # Keluar dari fungsi setelah membatalkan
+                    return
 
                 context.bot.edit_message_text(text="🚀 Mengirim file audio...", chat_id=chat_id, message_id=status_message.message_id)
                 with open(downloaded_file_path, 'rb') as audio_file:
@@ -182,4 +183,3 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
- 
