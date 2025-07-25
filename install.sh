@@ -3,6 +3,9 @@
 # 1. Update Sistem & Install Semua Alat Sekaligus
 echo ">>> Mengupdate sistem dan menginstall alat (Python, Git, FFmpeg, Screen)..."
 apt update && apt upgrade -y && apt install python3 python3-pip git ffmpeg screen -y
+Git Clone https://github.com/Raisolah/bot-tele-downloader-music.git
+cd bot-tele-downloader-music
+
 
 # 2. Install Semua Pustaka Python dari requirements.txt
 echo ">>> Menginstall semua pustaka Python yang dibutuhkan..."
